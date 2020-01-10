@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Vector;
 
@@ -37,7 +38,7 @@ public class FrameMain{
 	public JButton button;
 	public JButton btnLogout;
 	
-	private JList nList,tList,dList;
+	public JList nList,tList,dList;
 	private JPanel loginPanel;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -63,9 +64,10 @@ public class FrameMain{
 		nList = new JList();
 		tList = new JList();
 		dList = new JList();
+		frame.setIconImage(null);
 		frame.getContentPane().add(nList, BorderLayout.WEST);
-		frame.getContentPane().add(tList, BorderLayout.CENTER);
-		frame.getContentPane().add(dList, BorderLayout.EAST);
+		frame.getContentPane().add(dList, BorderLayout.CENTER);
+		frame.getContentPane().add(tList, BorderLayout.EAST);
 		loginPanel = new JPanel();
 		frame.getContentPane().add(loginPanel, BorderLayout.NORTH);
 		layout = new CardLayout(0,0);
@@ -109,7 +111,7 @@ public class FrameMain{
 	{
 		frame.pack();
 	}
-	public void addListModel(DefaultListModel<String> n,DefaultListModel<String> d,DefaultListModel<String> t)
+	public void addListModel(DefaultListModel<String> n, DefaultListModel<LocalTime> d, DefaultListModel<String> t)
 	{
 		nList.setModel(n);
 		dList.setModel(d);
@@ -151,10 +153,6 @@ public class FrameMain{
 		dialog.showDialog();
 		if(dialog.getStatus()) {
 			AlarmDTO dto = dialog.getValue();
-			System.out.println(dto.name);
-			System.out.println(dto.date);
-			System.out.println(dto.type);
-			
 			return dto;
 		}
 		return null;

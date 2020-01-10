@@ -18,9 +18,8 @@ import javax.swing.JTextField;
 /**
  * Custom Dialog 로써 해당 데이터를 변경하는데 있어서 컨트롤러가 따로 필요하지 않다.
  * 반환값을 가져오는 Method = getValue();
- * 
+ * 정상 종료 되었는지 판단하는 Method status 반환 getStatus;
  * @author songm
- *
  */
 
 public class AlarmDialog extends JDialog{
@@ -108,28 +107,27 @@ public class AlarmDialog extends JDialog{
 	public void buttonClickEvent()
 	{
 		dto = new AlarmDTO();
-		dto.name = this.name.getText();
+		dto.setName(this.name.getText());
 		Integer hour,minute,sec;
 		hour = (Integer) this.date.get(0).getSelectedItem();
 		minute = (Integer) this.date.get(1).getSelectedItem();
 		sec = (Integer) this.date.get(2).getSelectedItem();
 		LocalTime time = LocalTime.of(hour, minute, sec);
-		dto.date = time;
+		dto.setDate(time);
 		if(this.alarmType != null)
 		{
-			dto.type = this.alarmType;
+			dto.setType(this.alarmType);
 		}
 		if(this.path != null)
 		{
-			dto.path = path;
+			dto.setPath(path);
 		}
-		dto.type=AlarmDTO.SYSTEM_TYPE;
-		dto.path="";
+		dto.setType(type.getSelectedItem().toString());
 		status=true;
 		this.setVisible(false);
 		this.dispose();
 	}
-	
+
 	/**
 	 * 
 	 * @return AlarmDTO
