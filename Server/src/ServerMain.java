@@ -1,15 +1,10 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Arrays;
-import java.util.LinkedList;
-
 import Controller.ClientService;
 import Controller.Controller;
+
+import java.io.*;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.LinkedList;
 
 public class ServerMain {
 	private ServerSocket sock;

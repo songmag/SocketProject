@@ -1,24 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ClientProgram:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="47295694-6f89-43c0-9fa1-8f47a72f3049" name="Default Changelist" comment="" />
+    <list default="true" id="20539be6-ca74-4188-98d3-7c143a87c340" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/SocketProject_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/AlarmDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/AlarmDialog$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/AlarmDialog$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/AlarmDialog$DialogEvent.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/AlarmDialog.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/FrameMain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/MainController$AlarmThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/MainController$ListSelectionAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/MainController$LoginAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/MainController$MenuAction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/bin/MainController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/src/AlarmDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientProgram/src/DataPackage/AlarmDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/src/AlarmDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientProgram/src/UIPackage/AlarmDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/src/FrameMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientProgram/src/UIPackage/FrameMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientProgram/src/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientProgram/src/Controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Controller/ClientService.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Controller/ClientService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/Controller/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/Controller/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/DataPackage/JsonDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/DataPackage/JsonDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/DataPackage/ScheduleDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/DataPackage/ScheduleDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/ServerMain$ClientClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/ServerMain$ClientClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/bin/ServerMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/Server/bin/ServerMain.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/Controller/ClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/Controller/ClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/src/ServerMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/ServerMain.java" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1QonyANCF1vk7aNEL5UHnyyMdDJ" />
+  <component name="ProjectId" id="1W6RSmtlUnllW7inflCLCAnHeKG" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ClientProgram" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -41,21 +71,59 @@
       </list>
     </option>
   </component>
+  <component name="RunManager" selected="Application.ClientProgram">
+    <configuration name="ClientProgram" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="UIPackage.FrameMain" />
+      <module name="ClientProgram" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" editBeforeRun="true">
+      <option name="MAIN_CLASS_NAME" value="ServerMain" />
+      <module name="Server" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.ClientProgram" />
+    </list>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="47295694-6f89-43c0-9fa1-8f47a72f3049" name="Default Changelist" comment="" />
-      <created>1568446068431</created>
+      <changelist id="20539be6-ca74-4188-98d3-7c143a87c340" name="Default Changelist" comment="" />
+      <created>1578468060086</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1568446068431</updated>
-      <workItem from="1568446071576" duration="1914000" />
+      <updated>1578468060086</updated>
+      <workItem from="1578468065748" duration="4758000" />
+      <workItem from="1578472937308" duration="348000" />
+      <workItem from="1578540750074" duration="1057000" />
+      <workItem from="1578637230325" duration="1768000" />
+      <workItem from="1578657242292" duration="9889000" />
+      <workItem from="1578888380973" duration="3977000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

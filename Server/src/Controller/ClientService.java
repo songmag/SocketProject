@@ -1,12 +1,12 @@
 package Controller;
 
+import DataPackage.JsonDTO;
+import DataPackage.ScheduleDTO;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
-
-import DataPackage.JsonDTO;
-import DataPackage.ScheduleDTO;
 
 public class ClientService implements Controller {
 	private List<ScheduleDTO> dtos;

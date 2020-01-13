@@ -1,73 +1,62 @@
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JMenu;
-import javax.swing.JList;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
+package UIPackage;
+
+import Controller.MainController;
+import DataPackage.AlarmDTO;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.Vector;
-
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.JPasswordField;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-
-import java.awt.CardLayout;
-import java.awt.Color;
 
 public class FrameMain{
 	JFrame frame;
 	public JMenuItem openAlarm;
 	public JMenuItem addAlarm;
-	public JMenuItem updateAlarm;
-	public JMenuItem deleteAlarm;
+	public JMenuItem save;
 	public JMenuItem exit;
+
+	public JMenuItem popOpenAlarm;
+	public JMenuItem popAddAlarm;
+	public JMenuItem popUpdateAlarm;
+	public JMenuItem popDeleteAlarm;
+	public JMenuItem popSave;
+	public JMenuItem popExit;
+	public JMenuItem introduce;
 	public JButton button;
 	public JButton btnLogout;
-	
 	public JList nList,tList,dList;
 	private JPanel loginPanel;
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel;
-	private String[] cardLayoutName = {"LoginPanel","LogOutPanel"};
 	private CardLayout layout;
+
+	public JPopupMenu rightMenu;
+
 	public FrameMain(){
 		frame = new JFrame("AlarmProgram");
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
+		JMenu mnMenu2 = new JMenu("Introduce");
+		introduce = new JMenuItem("Introduce");
+		mnMenu2.add(introduce);
+
 		JMenu mnMenu = new JMenu("menu");
 		menuBar.add(mnMenu);
-		openAlarm = new JMenuItem("OpenAlarm");
+		menuBar.add(mnMenu2);
+		openAlarm = new JMenuItem("Open Alarm");
 		mnMenu.add(openAlarm);
-		addAlarm = new JMenuItem("AddAlarm");
+		addAlarm = new JMenuItem("Add Alarm");
 		mnMenu.add(addAlarm);
-		updateAlarm = new JMenuItem("UpdateAlarm");
-		mnMenu.add(updateAlarm);
-		deleteAlarm = new JMenuItem("DeleteAlarm");
-		mnMenu.add(deleteAlarm);
-		exit = new JMenuItem("ExitAlarm");
+		save = new JMenuItem("Save Alarm");
+		mnMenu.add(save);
+		exit = new JMenuItem("Exit Alarm");
 		mnMenu.add(exit);
 		nList = new JList();
 		tList = new JList();
 		dList = new JList();
 		frame.setIconImage(null);
-		frame.getContentPane().add(nList, BorderLayout.WEST);
-		frame.getContentPane().add(dList, BorderLayout.CENTER);
-		frame.getContentPane().add(tList, BorderLayout.EAST);
 		loginPanel = new JPanel();
 		frame.getContentPane().add(loginPanel, BorderLayout.NORTH);
 		layout = new CardLayout(0,0);
@@ -99,10 +88,37 @@ public class FrameMain{
 		panel_1.add(btnLogout);
 		layout.show(loginPanel,"LoginPanel");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		JPanel listPanel = new JPanel();
+		listPanel.setPreferredSize(new Dimension(900,400));
+		listPanel.add(nList,BorderLayout.WEST);
+		listPanel.add(dList,BorderLayout.CENTER);
+		listPanel.add(tList,BorderLayout.EAST);
+		listPanel.setBackground(Color.white);
+		frame.getContentPane().add(listPanel,BorderLayout.CENTER);
+		frame.getContentPane().setBackground(Color.white);
+		Dimension listSize = new Dimension(200,400);
+		nList.setPreferredSize(listSize);
+		dList.setPreferredSize(listSize);
+		tList.setPreferredSize(listSize);
 		nList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		dList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+		rightMenu = new JPopupMenu();
+
+		popOpenAlarm = new JMenuItem("Open Alarm");
+		popAddAlarm = new JMenuItem("Add Alarm");
+		popUpdateAlarm = new JMenuItem("UpDate Alarm");
+		popDeleteAlarm = new JMenuItem("Delete Alarm");
+		popSave = new JMenuItem("Save Alarm");
+		popExit = new JMenuItem("Exit");
+
+		rightMenu.add(popOpenAlarm);
+		rightMenu.add(popUpdateAlarm);
+		rightMenu.add(popAddAlarm);
+		rightMenu.add(popDeleteAlarm);
+		rightMenu.add(popSave);
+		rightMenu.add(popExit);
+		rightMenu.pack();
 		frame.setVisible(true);
 		frame.setResizable(false);
 		frame.pack();
@@ -111,16 +127,20 @@ public class FrameMain{
 	{
 		frame.pack();
 	}
+	public void showMousePopup(Point p)
+	{
+		rightMenu.setLocation(p.x,p.y);
+		rightMenu.setVisible(true);
+	}
+	public void showPopupMenu(boolean show)
+	{
+		rightMenu.setVisible(show);
+	}
 	public void addListModel(DefaultListModel<String> n, DefaultListModel<LocalTime> d, DefaultListModel<String> t)
 	{
 		nList.setModel(n);
 		dList.setModel(d);
 		tList.setModel(t);
-	}
-	public String getAlarm()
-	{
-		
-		return null;
 	}
 	public void setCardLayoutNext()
 	{
@@ -134,7 +154,7 @@ public class FrameMain{
 		String rs = null;
 		if(choose == JFileChooser.CANCEL_OPTION)
 		{
-			System.out.println("FileChooser Select Cancle");
+			System.out.println("FileChooser Select Cancel");
 		}
 		else if(choose == JFileChooser.APPROVE_OPTION)
 		{
@@ -143,7 +163,7 @@ public class FrameMain{
 		}
 		else
 		{
-			System.out.println("FileChooser Select Cancle");
+			System.out.println("FileChooser Select Cancel");
 		}
 		return rs;
 	}
@@ -171,16 +191,34 @@ public class FrameMain{
 	{
 		openAlarm.addActionListener(action);
 		addAlarm.addActionListener(action);
-		updateAlarm.addActionListener(action);
-		deleteAlarm.addActionListener(action);
+		save.addActionListener(action);
 		exit.addActionListener(action);
+		popOpenAlarm.addActionListener(action);
+		popAddAlarm.addActionListener(action);
+		popUpdateAlarm.addActionListener(action);
+		popDeleteAlarm.addActionListener(action);
+		popSave.addActionListener(action);
+		popExit.addActionListener(action);
+		introduce.addActionListener(action);
 	}
 	public void addButtonController(ActionListener action)
 	{
 		button.addActionListener(action);
 		btnLogout.addActionListener(action);
 	}
+	public AlarmDTO viewUpdateItem(AlarmDTO dto){
+		AlarmDialog dialog = new AlarmDialog(frame,dto);
+		dialog.showDialog();
+		if(dialog.getStatus()) {
+			AlarmDTO temp = dialog.getValue();
+			return temp;
+		}
+		return dto;
+	}
 	public static void main(String[] args) {
 		MainController main = new MainController(new FrameMain());
+	}
+	public void showIntroduce() {
+		JOptionPane.showMessageDialog(frame, "알람 서비스 by Songmag\n until 2020-01-01 ~ 2020-02-01","Introduce",JOptionPane.INFORMATION_MESSAGE);
 	}
 }

@@ -1,20 +1,17 @@
+package Controller;
+
+import DataPackage.AlarmDTO;
+import UIPackage.FrameMain;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
-
-import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import javax.swing.event.ListDataListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class MainController {
 	private FrameMain view;
@@ -43,21 +40,41 @@ public class MainController {
 		 */
 		this.view.addListModel(nameList, dateList, typeList);
 		ListSelectionAction action3 = new ListSelectionAction();
-		this.view.repack();
 		this.view.addListController(action3);
+		this.view.repack();
 		Thread t = new Thread(new AlarmThread());
 		t.setDaemon(true);
 		t.start();
-	}
-	public void deleteSelectItem(String item)
-	{
-
 	}
 	public void addList(String a,LocalTime b,String c) {
 		nameList.addElement(a);
 		dateList.addElement(b);
 		typeList.addElement(c);
 		view.repack();
+	}
+	public void updateSelectItem(AlarmDTO dto) {
+		AlarmDTO temp = view.viewUpdateItem(dto);
+		dto.setDate(temp.getDateTime());
+		dto.setType(temp.getType());
+		dto.setName(temp.getName());
+		dto.setPath(temp.getPath());
+		reModelSetting();
+	}
+	public void reModelSetting() {
+		nameList.clear();
+		dateList.clear();
+		typeList.clear();
+		for(AlarmDTO to : dtos)
+		{
+			nameList.addElement(to.getName());
+			dateList.addElement(to.getDateTime());
+			typeList.addElement(to.getType());
+		}
+	}
+	public void deleteSelected(AlarmDTO dto)
+	{
+		dtos.remove(dto);
+		reModelSetting();
 	}
 	//demonThread로 동작시켜서 자동 종료되도록 처리
 	class AlarmThread implements Runnable{
@@ -75,16 +92,20 @@ public class MainController {
 						if ((dto.getDateTime().until(LocalTime.now(), ChronoUnit.HOURS) | dto.getDateTime().until(LocalTime.now(), ChronoUnit.MINUTES)
 						| dto.getDateTime().until(LocalTime.now(), ChronoUnit.SECONDS))==0)
 						{
-							if (dto.getType().equals(AlarmDTO.SYSTEM_TYPE)) {
-							/*
-							Runtime object = Runtime.getRuntime();
-							try {
-								object.exec("shutdown -s");
-							} catch (IOException e) {
+							if (dto.getType().equals(AlarmDTO.SYSTEM_TYPE))
+							{
+								Runtime object = Runtime.getRuntime();
+								try {
+									object.exec("shutdown -s");
+								} catch (IOException e) {
 								e.printStackTrace();
-							}
-							*/
+								}
 								System.out.println("SYSTEM_TEST");
+								try {
+									Thread.sleep(1000);
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
 							} else {
 								System.out.println(dto.getPath());
 							}
@@ -99,8 +120,9 @@ public class MainController {
 	class MenuAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if(view.rightMenu.isVisible()) view.showPopupMenu(false);
 			JMenuItem item = (JMenuItem)e.getSource();
-			if(item == view.exit)
+			if(item == view.exit || item == view.popExit)
 			{
 				if(view.exitView() == 0) {
 					System.exit(0);
@@ -108,7 +130,7 @@ public class MainController {
 				}
 				System.out.println("Check Option");
 			}
-			else if(item == view.addAlarm)
+			else if(item == view.addAlarm || item == view.popAddAlarm)
 			{
 				AlarmDTO dto = view.addAlarmView();
 				if(dto != null)
@@ -122,17 +144,34 @@ public class MainController {
 					}
 				}
 			}
-			else if(item == view.deleteAlarm)
+			else if(item == view.popDeleteAlarm)
 			{
-				
+				if(view.nList.getSelectedIndex() != -1) {
+					deleteSelected(dtos.get(view.nList.getSelectedIndex()));
+				}
 			}
-			else if(item == view.openAlarm)
+			else if(item == view.openAlarm || item == view.popOpenAlarm)
 			{
 				String rs=view.fileChoose();
 				if(rs != null)
 				{
 					System.out.println(rs);
 				}
+			}
+			else if(item == view.save || item == view.popSave)
+			{
+				System.out.println("Save Alarm");
+			}
+			else if(item == view.popUpdateAlarm)
+			{
+				if(view.nList.getSelectedIndex() != -1)
+				{
+					updateSelectItem(dtos.get(view.nList.getSelectedIndex()));
+				}
+			}
+			else if(item == view.introduce)
+			{
+				view.showIntroduce();
 			}
 		}
 	}
@@ -150,42 +189,58 @@ public class MainController {
 				System.out.println("LogoutButton");
 				view.setCardLayoutNext();
 			}
-		}	
+		}
 	}
-	class ListSelectionAction implements MouseListener{
-		@Override
-		public void mouseClicked(MouseEvent e) {
-					}
-		@Override
-		public void mouseEntered(MouseEvent e) {}
-		@Override
-		public void mouseExited(MouseEvent e) {}
+	class ListSelectionAction extends MouseAdapter{
+		int clickCounter = 0;
+		int selectIndex=-1;
+
 		@Override
 		public void mousePressed(MouseEvent e) {
-			JList list = (JList) e.getSource();
-			if(list == view.nList)
+			if(view.rightMenu.isVisible())
 			{
-				System.out.println(list.getSelectedValue());
-				view.dList.setSelectedIndex(list.getSelectedIndex());
-				view.tList.setSelectedIndex(list.getSelectedIndex());
+				view.showPopupMenu(false);
 			}
-			else if(list == view.dList)
+			if(e.getButton() == MouseEvent.BUTTON3)
 			{
-				System.out.println(list.getSelectedValue());
-				view.nList.setSelectedIndex(list.getSelectedIndex());
-				view.tList.setSelectedIndex(list.getSelectedIndex());
+				System.out.println("Right");
+				view.showMousePopup(e.getLocationOnScreen());
+				return;
+			}
+			JList list = (JList) e.getSource();
+			if(list.getSelectedIndex() != selectIndex) {
+				selectIndex = list.getSelectedIndex();
+				clickCounter=0;
+			}
+			else if(clickCounter < 2)
+			{
+				clickCounter +=1;
+				return;
 			}
 			else
 			{
-				System.out.println(list.getSelectedValue());
-				view.nList.setSelectedIndex(list.getSelectedIndex());
-				view.dList.setSelectedIndex(list.getSelectedIndex());
+				if(selectIndex != -1) {
+					updateSelectItem(dtos.get(selectIndex));
+					selectIndex = -1;
+					clickCounter = 0;
+				}
 			}
-
-
+			if(list == view.nList)
+			{
+				view.dList.setSelectedIndex(selectIndex);
+				view.tList.setSelectedIndex(selectIndex);
+			}
+			else if(list == view.dList)
+			{
+				view.nList.setSelectedIndex(selectIndex);
+				view.tList.setSelectedIndex(selectIndex);
+			}
+			else
+			{
+				view.nList.setSelectedIndex(selectIndex);
+				view.dList.setSelectedIndex(selectIndex);
+			}
 		}
-		@Override
-		public void mouseReleased(MouseEvent e) {}
 	}
 }
 

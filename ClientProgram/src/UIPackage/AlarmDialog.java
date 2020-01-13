@@ -1,19 +1,14 @@
+package UIPackage;
+
+import DataPackage.AlarmDTO;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.time.LocalTime;
 import java.util.Vector;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * Custom Dialog 로써 해당 데이터를 변경하는데 있어서 컨트롤러가 따로 필요하지 않다.
@@ -30,9 +25,10 @@ public class AlarmDialog extends JDialog{
 	AlarmDTO dto = null;
 	boolean status;
 	String alarmType,path;
+
 	public AlarmDialog(JFrame frame)
 	{
-		super(frame,"CustomDialog",true);
+		super(frame,"Alarm Add",true);
 		JPanel panel;
 		name = new JTextField(10);
 		date = new Vector<JComboBox<Integer>>();
@@ -50,7 +46,7 @@ public class AlarmDialog extends JDialog{
 		date.add(hour);
 		date.add(minute);
 		date.add(sec);
-		panel = new JPanel();		
+		panel = new JPanel();
 		panel.add(new JLabel("Name"));
 		panel.add(name);
 		panel.add(new JLabel("Date"));
@@ -59,21 +55,21 @@ public class AlarmDialog extends JDialog{
 		panel.add(sec);
 		panel.add(new JLabel("Type"));
 		type = new JComboBox<String>();
-		type.addItem("시스템 종료");
-		type.addItem("음악 실행");
+		type.addItem("ShutDown System");
+		type.addItem("Music Alarm");
 		type.addActionListener(new ActionListener() {
 			JComboBox box;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				box = (JComboBox) e.getSource();
-				if(box.getSelectedItem().equals("음악 실행"))
+				if(box.getSelectedItem().equals("Music Alarm"))
 				{
-					alarmType=AlarmDTO.SOUND_TYPE;
+					alarmType= AlarmDTO.SOUND_TYPE;
 					System.out.println("MusicBox");
 				}
 				else
 				{
-					alarmType=AlarmDTO.SYSTEM_TYPE;
+					alarmType= AlarmDTO.SYSTEM_TYPE;
 					System.out.println("SystemType");
 				}
 			}
@@ -88,11 +84,20 @@ public class AlarmDialog extends JDialog{
 					status = false;
 					System.out.println("Error System Fail");
 				}
-	
+
 			}
 		});
-		DialogEvent action = new DialogEvent(this);
+		DialogEvent action = new DialogEvent();
 		btn1.addActionListener(action);
+	}
+	public AlarmDialog(JFrame frame, AlarmDTO dto)
+	{
+		this(frame);
+		name.setText(dto.getName());
+		date.get(0).setSelectedItem(dto.getDateTime().getHour());
+		date.get(1).setSelectedItem(dto.getDateTime().getMinute());
+		date.get(2).setSelectedItem(dto.getDateTime().getSecond());
+		type.setSelectedItem(dto.getType());
 	}
 	public void showDialog()
 	{
@@ -122,12 +127,12 @@ public class AlarmDialog extends JDialog{
 		{
 			dto.setPath(path);
 		}
+		System.out.println(type.getSelectedItem().toString());
 		dto.setType(type.getSelectedItem().toString());
 		status=true;
 		this.setVisible(false);
 		this.dispose();
 	}
-
 	/**
 	 * 
 	 * @return AlarmDTO
@@ -141,14 +146,9 @@ public class AlarmDialog extends JDialog{
 		return dto;
 	}
 	class DialogEvent implements ActionListener{
-		AlarmDialog dialog;
-		public DialogEvent(AlarmDialog dialog)
-		{
-			this.dialog = dialog;
-		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			dialog.buttonClickEvent();
+			buttonClickEvent();
 		}
 	}
 }

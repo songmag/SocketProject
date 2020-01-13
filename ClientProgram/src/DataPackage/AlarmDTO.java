@@ -1,10 +1,11 @@
+package DataPackage;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
-import java.util.Date;
 
 public class AlarmDTO implements Cloneable{
-	static final String SOUND_TYPE="MUSIC_TYPE";
-	static final String SYSTEM_TYPE="SYSTEM_TYPE";
+	public static final String SOUND_TYPE="MUSIC_TYPE";
+	public static final String SYSTEM_TYPE="SYSTEM_TYPE";
 	private String name;
 	private LocalTime date;
 	private String type;
@@ -26,12 +27,14 @@ public class AlarmDTO implements Cloneable{
 	public void setDate(LocalTime date) {
 		this.date = date;
 	}
-
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
-		this.type = type;
+		if(type.equals("ShutDown System") || type.equals(AlarmDTO.SYSTEM_TYPE))
+			this.type = AlarmDTO.SYSTEM_TYPE;
+		else
+			this.type = AlarmDTO.SOUND_TYPE;
 	}
 
 	public String getPath() {
@@ -40,15 +43,15 @@ public class AlarmDTO implements Cloneable{
 	}
 
 	public void setPath(String path) {
-		if (path == null | path.equals(""))
+		if (path == null || path.equals(""))
 		{
 			this.path="";
+			return;
 		}
 		this.path = path;
 	}
-
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
 	public String getDate()
