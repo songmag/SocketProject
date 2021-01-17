@@ -30,3 +30,7 @@
 ### UML Class Diagram
 
 ![Image UML](./UI_Image/UML.PNG)
+
+
+### 일시 중지 그때까지 
+![알람 프로젝트](https://user-images.githubusercontent.com/34934033/104837419-adbdde00-58f7-11eb-9d87-f1c8b43b4dcf.PNG)
